@@ -31,6 +31,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _handleDeleteTask(String id) {
+    setState(() {
+      items.removeWhere((item) => item.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     print('rebuild');
@@ -45,7 +51,12 @@ class _MyAppState extends State<MyApp> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
-          children: items.map((item) => CardBody(item: item)).toList(),
+          children: items
+              .map((item) => CardBody(
+                    item: item,
+                    handleDelete: _handleDeleteTask,
+                  ))
+              .toList(),
         ),
       ),
       floatingActionButton: FloatingActionButton(

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:confirm_dialog/confirm_dialog.dart';
 
 // ignore: must_be_immutable
 class CardBody extends StatelessWidget {
-  CardBody({Key? key, required this.item}) : super(key: key);
+  CardBody({Key? key, required this.item, required this.handleDelete})
+      : super(key: key);
   var item;
+  final Function handleDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +30,18 @@ class CardBody extends StatelessWidget {
                   color: Color.fromARGB(255, 255, 255, 255),
                   fontWeight: FontWeight.bold),
             ),
-            Icon(
-              Icons.delete_outlined,
-              color: Color.fromARGB(245, 222, 6, 6),
-              size: 30,
+            InkWell(
+              onTap: () async {
+                if (await confirm(context)) {
+                  handleDelete(item.id);
+                }
+                return;
+              },
+              child: const Icon(
+                Icons.delete_outlined,
+                color: Color.fromARGB(245, 222, 6, 6),
+                size: 30,
+              ),
             ),
           ],
         ),
