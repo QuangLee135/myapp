@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CardBody extends StatelessWidget {
   CardBody({Key? key, required this.item}) : super(key: key);
   var item;
