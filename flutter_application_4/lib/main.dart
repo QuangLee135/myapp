@@ -14,18 +14,26 @@ void main(List<String> args) {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final List<DataItems> items = [
-    DataItems(id: '1', name: 'Tap the duc'),
-    DataItems(id: '2', name: 'Danh rang'),
-    DataItems(id: '3', name: 'An sang'),
-    DataItems(id: '4', name: 'Di hoc'),
-  ];
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final List<DataItems> items = [];
+
+  void _handleAddTask(String name) {
+    final newItem = DataItems(id: DateTime.now().toString(), name: name);
+    setState(() {
+      items.add(newItem);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    print('rebuild');
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -50,7 +58,7 @@ class MyApp extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 print(context);
-                return ModelBottom();
+                return ModelBottom(addTask: _handleAddTask);
               });
         },
         child: const Icon(

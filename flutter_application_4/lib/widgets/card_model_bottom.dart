@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ModelBottom extends StatelessWidget {
-  const ModelBottom({
-    super.key,
-  });
+  ModelBottom({Key? key, required this.addTask}) : super(key: key);
+  final Function addTask;
+
+  TextEditingController controller = TextEditingController();
+
+  void _handleOnclick(BuildContext context) {
+    final name = controller.text;
+    if (name.isEmpty) {
+      return;
+    }
+    addTask(name);
+
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +25,8 @@ class ModelBottom extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           children: [
-            const TextField(
+            TextField(
+              controller: controller,
               decoration: InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Your Task'),
             ),
@@ -21,7 +34,7 @@ class ModelBottom extends StatelessWidget {
               height: 15,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => _handleOnclick(context),
               child: const Text('Add Task'),
             ),
           ],
