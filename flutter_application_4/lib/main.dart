@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_4/models/items.dart';
+import 'package:flutter_application_4/widgets/card_model_bottom.dart';
+
+import 'widgets/card_body.dart';
 
 void main(List<String> args) {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      primaryColor: Colors.amberAccent,
+    ),
     home: MyApp(),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final List<DataItems> items = [
+    DataItems(id: '1', name: 'Tap the duc'),
+    DataItems(id: '2', name: 'Danh rang'),
+    DataItems(id: '3', name: 'An sang'),
+    DataItems(id: '4', name: 'Di hoc'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,26 +37,22 @@ class MyApp extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 74,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 125, 124, 120),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: const [
-                  Text('Danh rang'),
-                  Icon(Icons.delete_outline),
-                ],
-              ),
-            )
-          ],
+          children: items.map((item) => CardBody(item: item)).toList(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              isScrollControlled: true,
+              context: context,
+              builder: (BuildContext context) {
+                print(context);
+                return ModelBottom();
+              });
+        },
         child: const Icon(
           Icons.add,
           size: 40,
