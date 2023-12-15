@@ -1,80 +1,122 @@
+import 'dart:convert';
+import 'package:flutter_application_4/data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/models/items.dart';
-import 'package:flutter_application_4/widgets/card_model_bottom.dart';
 
-import 'widgets/card_body.dart';
-
-void main(List<String> args) {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      primaryColor: Colors.amberAccent,
-    ),
-    home: MyApp(),
-  ));
+void main() {
+  runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: MyHomePage(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-  final List<DataItems> items = [];
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
-  void _handleAddTask(String name) {
-    final newItem = DataItems(id: DateTime.now().toString(), name: name);
-    setState(() {
-      items.add(newItem);
-    });
-  }
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
-  void _handleDeleteTask(String id) {
-    setState(() {
-      items.removeWhere((item) => item.id == id);
-    });
+class _MyHomePageState extends State<MyHomePage> {
+  final Map<String, dynamic> _allWords = jsonDecode(data);
+  late List<String> _allKeys;
+
+  @override
+  void initState() {
+    super.initState();
+    _allKeys = _allWords.keys.toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('rebuild');
+    print(_allWords['abacus']![0]);
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'ToDoList',
-          style: TextStyle(fontSize: 40),
-        ),
+        title: const Text('Từ Điển Anh Việt'),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
         child: Column(
-          children: items
-              .map((item) => CardBody(
-                    item: item,
-                    handleDelete: _handleDeleteTask,
-                  ))
-              .toList(),
+          children: [
+            const SizedBox(height: 20),
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  _allKeys = _allWords.keys
+                      .where((key) =>
+                          key.toLowerCase().contains(value.toLowerCase()))
+                      .toList();
+                });
+              },
+              onSubmitted: (value) {},
+              decoration: const InputDecoration(
+                  labelText: 'Search', suffixIcon: Icon(Icons.search)),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _allKeys.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final String key = _allKeys[index];
+                  return ListTile(
+                    title: Text(key),
+                    subtitle: Text(_allWords[key][0]),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => DetailView(
+                              word: key,
+                              definition: _allWords[key][0],
+                              pronounce: _allWords[key][1]),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              ),
-              isScrollControlled: true,
-              context: context,
-              builder: (BuildContext context) {
-                print(context);
-                return ModelBottom(addTask: _handleAddTask);
-              });
-        },
-        child: const Icon(
-          Icons.add,
-          size: 40,
+    );
+  }
+}
+
+class DetailView extends StatelessWidget {
+  const DetailView(
+      {Key? key,
+      required this.word,
+      required this.definition,
+      required this.pronounce})
+      : super(key: key);
+  final String word;
+  final String definition;
+  final String pronounce;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(word),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(pronounce),
+              Text(definition),
+            ],
+          ),
         ),
       ),
     );
