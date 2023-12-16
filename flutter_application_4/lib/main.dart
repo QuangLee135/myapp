@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(_allWords['abacus']![0]);
+    print(_allWords);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Từ Điển Anh Việt'),
