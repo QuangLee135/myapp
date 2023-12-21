@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "825870190968",
+    "project_id": "zoolist-d9459",
+    "storage_bucket": "zoolist-d9459.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825870190968:android:ccc3a4275b09296352a08d",
+        "android_client_info": {
+          "package_name": "com.example.zoo_list"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFE5I6V-DOM_ntjRe7oUmv2RnvRb0afWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
