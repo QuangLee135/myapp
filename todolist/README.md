@@ -19,7 +19,7 @@ Bước 4: Chạy Ứng Dụng
     Hoặc chạy trục tiếp trên VS code
 - Ứng dụng sẽ xuất hiện trên môi trường mô phỏng của bạn.
 
-## Cách đoạn code hoạt động ##
+## Cách đoạn code hoạt động(em có thêm code vào nhưng có vào đoạn code bị dính nhau ạ T.T) ##
 1. Hàm main:
     void main(List<String> args) {
         runApp(MaterialApp(
@@ -87,6 +87,7 @@ Bước 4: Chạy Ứng Dụng
     Sử dụng setState để cập nhật trạng thái và loại bỏ mục khỏi danh sách dựa trên id.
 
 4. Phương thức build:
+
 @override
 Widget build(BuildContext context) {
   print('rebuild');
