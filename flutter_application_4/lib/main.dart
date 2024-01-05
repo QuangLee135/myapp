@@ -122,4 +122,3 @@ class DetailView extends StatelessWidget {
     );
   }
 }
-

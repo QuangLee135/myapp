@@ -45,10 +45,10 @@ packages:
     dependency: "direct dev"
     description:
       name: confirm_dialog
-      sha256: b6098f3b487901611de5302f06960fd0da738b245cd15b04e84bedeb7829ed58
+      sha256: faf16fc359eb7c0024ec43f94653e40683ca99ff2e9fdf66cb393300a61f6e46
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -193,4 +193,4 @@ packages:
     source: hosted
     version: "0.3.0"
 sdks:
-  dart: ">=3.2.0-194.0.dev <4.0.0"
+  dart: ">=3.2.3 <4.0.0"
