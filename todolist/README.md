@@ -87,41 +87,42 @@ Bước 4: Chạy Ứng Dụng
     Sử dụng setState để cập nhật trạng thái và loại bỏ mục khỏi danh sách dựa trên id.
 
 4. Phương thức build:
-    @override
-    Widget build(BuildContext context) {
-        print('rebuild');
-        return Scaffold(
-            appBar: AppBar(
-                centerTitle: true,
-                title: const Text(
-                    'ToDoList',
-                    style: TextStyle(fontSize: 40),
-                ),
-            ),
-            body: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Column(
-                    children: items
-                        .map((item) => CardBody(
-                            item: item,
-                            handleDelete: _handleDeleteTask,
-                            ))
-                        .toList(),
-                ),
-            ),
-            floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                    showModalBottomSheet(
-                        // ...
-                );
-            },
-                child: const Icon(
-                    Icons.add,
-                    size: 40,
-                ),
-            ),
+@override
+Widget build(BuildContext context) {
+  print('rebuild');
+  return Scaffold(
+    appBar: AppBar(
+      centerTitle: true,
+      title: const Text(
+        'ToDoList',
+        style: TextStyle(fontSize: 40),
+      ),
+    ),
+    body: SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        children: items
+            .map((item) => CardBody(
+                  item: item,
+                  handleDelete: _handleDeleteTask,
+                ))
+            .toList(),
+      ),
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        showModalBottomSheet(
+            // ...
         );
-    }
+      },
+      child: const Icon(
+        Icons.add,
+        size: 40,
+      ),
+    ),
+  );
+}
+
 
 - build Method:
     Phương thức này xây dựng giao diện người dùng của ứng dụng.
@@ -156,7 +157,7 @@ class CardBody extends StatelessWidget {
     );
   }
 
-  // Phần này giải thích hàm _buildContainerDecoration
+// Phần này giải thích hàm _buildContainerDecoration
   BoxDecoration _buildContainerDecoration() {
     return BoxDecoration(
       color: Color.fromARGB(255, 221, 178, 7),
@@ -164,7 +165,7 @@ class CardBody extends StatelessWidget {
     );
   }
 
-  // Phần này giải thích hàm _buildCardContent
+// Phần này giải thích hàm _buildCardContent
   Widget _buildCardContent() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -178,7 +179,7 @@ class CardBody extends StatelessWidget {
     );
   }
 
-  // Phần này giải thích hàm _buildTaskText
+// Phần này giải thích hàm _buildTaskText
   Widget _buildTaskText() {
     return Text(
       item.name,
@@ -190,7 +191,7 @@ class CardBody extends StatelessWidget {
     );
   }
 
-  // Phần này giải thích hàm _buildDeleteButton
+// Phần này giải thích hàm _buildDeleteButton
   Widget _buildDeleteButton() {
     return InkWell(
       onTap: () async {
@@ -207,7 +208,7 @@ class CardBody extends StatelessWidget {
     );
   }
 
-  // Phần này giải thích hàm _confirmDelete
+// Phần này giải thích hàm _confirmDelete
   Future<bool> _confirmDelete(BuildContext context) async {
     // ... (hiện thực hộp thoại xác nhận xóa công việc và trả về kết quả)
   }
@@ -226,16 +227,14 @@ class CardBody extends StatelessWidget {
 #### ModelBottom(card_model_bottom) ####
 Đây là một widget ModelBottom trong Flutter, được thiết kế để hiển thị một bottom sheet chứa một TextField để người dùng nhập công việc mới và một nút "Add Task" để thêm công việc đó
 
-import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ModelBottom extends StatelessWidget {
   ModelBottom({Key? key, required this.addTask}) : super(key: key);
   final Function addTask;
 
   TextEditingController controller = TextEditingController();
 
-  // Xử lý khi người dùng nhấn nút "Add Task"
+// Xử lý khi người dùng nhấn nút "Add Task"
   void _handleOnclick(BuildContext context) {
     final name = controller.text;
     if (name.isEmpty) {
@@ -243,7 +242,7 @@ class ModelBottom extends StatelessWidget {
     }
     addTask(name);
 
-    // Đóng bottom sheet sau khi thêm công việc
+// Đóng bottom sheet sau khi thêm công việc
     Navigator.pop(context);
   }
 
@@ -266,7 +265,7 @@ class ModelBottom extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            // Nút "Add Task" để thực hiện thêm công việc
+// Nút "Add Task" để thực hiện thêm công việc
             ElevatedButton(
               onPressed: () => _handleOnclick(context),
               child: const Text('Add Task'),
